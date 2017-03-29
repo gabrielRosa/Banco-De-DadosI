@@ -1,0 +1,96 @@
+Nomes: Daniel Figueiredo, Gabriel Ferreira da Rosa, Vinicius Winter, Alencar Hentges;
+__________________________________________________________________
+Exercicio 1
+
+CREATE TABLE Convenio
+( idConvenio INTEGER NOT NULL,
+  Nome VARCHAR(50),
+  PRIMARY KEY (idConvenio))
+  
+CREATE TABLE Medico
+( idMedico INTEGER NOT NULL,
+  Nome VARCHAR(50),
+  PRIMARY KEY (idMedico))
+  
+CREATE TABLE Paciente
+( idPaciente INTEGER NOT NULL,
+  DtNascimento DATE NOT NULL,
+  Nome VARCHAR(50) NOT NULL,
+  Diversos VARCHAR(50) NOT NULL,
+  idConvenio INTEGER NOT NULL,
+  PRIMARY KEY (idPaciente),
+  FOREIGN KEY (idConvenio))
+  
+CREATE TABLE Consulta
+( idConsulta INTEGER NOT NULL,
+  Data DATE NOT NULL,
+  idPaciente INTEGER NOT NULL,
+  idMedico INTEGER NOT NULL,
+  PRIMARY KEY (idConsulta),
+  FOREIGN KEY (idPaciente),
+  FOREIGN KEY (idMedico))
+ 
+CREATE TABLE Exame
+( idExame INTEGER NOT NULL,
+  idConsulta INTEGER NOT NULL,
+  Data DATE NOT NULL,
+  Resultados VARCHAR(100) NOT NULL,
+  PRIMARY KEY (idExame, idConsulta),
+  FOREIGN KEY (idConsulta))
+  
+  
+__________________________________________________________________
+Exercicio 6.2
+
+CREATE TABLE Departamento
+( CodDepto INTEGER NOT NULL,
+  Descricao VARCHAR(30) NOT NULL,
+  PRIMARY KEY (CodDepto))
+  
+CREATE TABLE Cargo
+( CodCargo INTEGER NOT NULL,
+  Descricao VARCHAR(30) NOT NULL,
+  PRIMARY KEY (CodCargo))
+  
+CREATE TABLE Lotacao
+( Matricula INTEGER NOT NULL,
+  CodDepto INTEGER NOT NULL,
+  dtInicio DATE NOT NULL,
+  dtFim DATE NOT NULL,
+  PRIMARY KEY (Matricula, CodDepto, dtInicio),
+  FOREIGN KEY (Matricula),
+  FOREIGN KEY (CodDepto))
+  
+  
+CREATE TABLE Ocupacao 
+( Matricula INTEGER NOT NULL,
+  CodCargo INTEGER NOT NULL,
+  dtInicio DATE NOT NULL,
+  dtFim DATE NOT NULL,
+  PRIMARY KEY (Matricula, CodCargo, dtInicio),
+  FOREIGN KEY(Matricula),
+  FOREIGN KEY(CodCargo))
+  
+CREATE TABLE Dependente
+( idDependente INTEGER NOT NULL,
+  Matricula INTEGER NOT NULL,
+  Nome VARCHAR(50) NOT NULL,
+  dtNascimento DATE NOT NULL,
+  PRIMARY KEY(idDependente, Matricula),
+  FOREIGN KEY(Matricula))
+  
+CREATE TABLE Funcionario
+( Matricula INTEGER NOT NULL,
+  Nome VARCHAR(50) NOT NULL,
+  dtNascimento DATE NOT NULL,
+  Nacionalidade VARCHAR(20) NOT NULL,
+  Sexo CHAR(1) NOT NULL,
+  EstadoCivil VARCHAR(15) NOT NULL,
+  RG VARCHAR(20) NOT NULL,
+  CIC VARCHAR(20) NOT NULL,
+  Endereco VARCHAR(50) NOT NULL,
+  Telefone VARCHAR(30) NOT NULL,
+  DtAdmissao DATE NOT NULL,
+  PRIMARY KEY(Matricula))
+
+
