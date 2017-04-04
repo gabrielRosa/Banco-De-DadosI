@@ -1,16 +1,18 @@
 Nomes: Daniel Figueiredo, Gabriel Ferreira da Rosa, Vinicius Winter, Alencar Hentges;
 __________________________________________________________________
-Exercicio 1
+Exercicio 6.1
 
 CREATE TABLE Convenio
 ( idConvenio INTEGER NOT NULL,
   Nome VARCHAR(50),
-  PRIMARY KEY (idConvenio))
+  PRIMARY KEY (idConvenio)
+);
   
 CREATE TABLE Medico
 ( idMedico INTEGER NOT NULL,
   Nome VARCHAR(50),
-  PRIMARY KEY (idMedico))
+  PRIMARY KEY (idMedico)
+);
   
 CREATE TABLE Paciente
 ( idPaciente INTEGER NOT NULL,
@@ -19,16 +21,19 @@ CREATE TABLE Paciente
   Diversos VARCHAR(50) NOT NULL,
   idConvenio INTEGER NOT NULL,
   PRIMARY KEY (idPaciente),
-  FOREIGN KEY (idConvenio))
+  FOREIGN KEY (idConvenio) REFERENCES Convenio(idConvenio)
+);
   
 CREATE TABLE Consulta
 ( idConsulta INTEGER NOT NULL,
   Data DATE NOT NULL,
+  Diagnostico VARCHAR(100) NOT NULL,
   idPaciente INTEGER NOT NULL,
   idMedico INTEGER NOT NULL,
   PRIMARY KEY (idConsulta),
-  FOREIGN KEY (idPaciente),
-  FOREIGN KEY (idMedico))
+  FOREIGN KEY (idPaciente) REFERENCES Paciente(idPaciente),
+  FOREIGN KEY (idMedico) REFERENCES Medico(idMedico)
+);
  
 CREATE TABLE Exame
 ( idExame INTEGER NOT NULL,
@@ -36,7 +41,8 @@ CREATE TABLE Exame
   Data DATE NOT NULL,
   Resultados VARCHAR(100) NOT NULL,
   PRIMARY KEY (idExame, idConsulta),
-  FOREIGN KEY (idConsulta))
+  FOREIGN KEY (idConsulta) REFERENCES Consulta(idConsulta)
+);
   
   
 __________________________________________________________________
@@ -45,40 +51,15 @@ Exercicio 6.2
 CREATE TABLE Departamento
 ( CodDepto INTEGER NOT NULL,
   Descricao VARCHAR(30) NOT NULL,
-  PRIMARY KEY (CodDepto))
+  PRIMARY KEY (CodDepto)
+);
   
 CREATE TABLE Cargo
 ( CodCargo INTEGER NOT NULL,
   Descricao VARCHAR(30) NOT NULL,
-  PRIMARY KEY (CodCargo))
-  
-CREATE TABLE Lotacao
-( Matricula INTEGER NOT NULL,
-  CodDepto INTEGER NOT NULL,
-  dtInicio DATE NOT NULL,
-  dtFim DATE NOT NULL,
-  PRIMARY KEY (Matricula, CodDepto, dtInicio),
-  FOREIGN KEY (Matricula),
-  FOREIGN KEY (CodDepto))
-  
-  
-CREATE TABLE Ocupacao 
-( Matricula INTEGER NOT NULL,
-  CodCargo INTEGER NOT NULL,
-  dtInicio DATE NOT NULL,
-  dtFim DATE NOT NULL,
-  PRIMARY KEY (Matricula, CodCargo, dtInicio),
-  FOREIGN KEY(Matricula),
-  FOREIGN KEY(CodCargo))
-  
-CREATE TABLE Dependente
-( idDependente INTEGER NOT NULL,
-  Matricula INTEGER NOT NULL,
-  Nome VARCHAR(50) NOT NULL,
-  dtNascimento DATE NOT NULL,
-  PRIMARY KEY(idDependente, Matricula),
-  FOREIGN KEY(Matricula))
-  
+  PRIMARY KEY (CodCargo)
+);
+
 CREATE TABLE Funcionario
 ( Matricula INTEGER NOT NULL,
   Nome VARCHAR(50) NOT NULL,
@@ -91,6 +72,38 @@ CREATE TABLE Funcionario
   Endereco VARCHAR(50) NOT NULL,
   Telefone VARCHAR(30) NOT NULL,
   DtAdmissao DATE NOT NULL,
-  PRIMARY KEY(Matricula))
+  PRIMARY KEY(Matricula)
+);
+  
+CREATE TABLE Lotacao
+( Matricula INTEGER NOT NULL,
+  CodDepto INTEGER NOT NULL,
+  dtInicio DATE NOT NULL,
+  dtFim DATE NOT NULL,
+  PRIMARY KEY (Matricula, CodDepto, dtInicio),
+  FOREIGN KEY (Matricula) REFERENCES Funcionario(Matricula),
+  FOREIGN KEY (CodDepto) REFERENCES Departamento(CodDepto)
+);  
+  
+CREATE TABLE Ocupacao 
+( Matricula INTEGER NOT NULL,
+  CodCargo INTEGER NOT NULL,
+  dtInicio DATE NOT NULL,
+  dtFim DATE NOT NULL,
+  PRIMARY KEY (Matricula, CodCargo, dtInicio),
+  FOREIGN KEY(Matricula) REFERENCES Funcionario(Matricula),
+  FOREIGN KEY(CodCargo) REFERENCES Cargo(CodCargo)
+);
+  
+CREATE TABLE Dependente
+( idDependente INTEGER NOT NULL,
+  Matricula INTEGER NOT NULL,
+  Nome VARCHAR(50) NOT NULL,
+  dtNascimento DATE NOT NULL,
+  PRIMARY KEY(idDependente, Matricula),
+  FOREIGN KEY(Matricula) REFERENCES Funcionario(Matricula)
+);
+  
+
 
 
