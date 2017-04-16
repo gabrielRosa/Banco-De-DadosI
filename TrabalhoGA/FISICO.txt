@@ -1,0 +1,69 @@
+CREATE TABLE Pesquisador 
+( Código INTEGER NOT NULL,
+   Nome VARCHAR(60) NOT NULL,
+   PRIMARY KEY (Código))
+   
+CREATE TABLE Instituição 
+( IdInstituição INTEGER NOT NULL,
+  Nome VARCHAR(60) NOT NULL,
+  País VARCHAR(60) NOT NULL,
+  PRIMARY KEY (IdInstituição))
+  
+CREATE TABLE Trabalho 
+( Código INTEGER NOT NULL,
+  IdInstituição INTEGER NOT NULL,
+  DataInicial DATETIME NOT NULL,
+  DataDesligamento DATETIME,
+  FOREIGN KEY(Código) REFERENCES Pesquisador (Código),
+  FOREIGN KEY(IdInstituição) REFERENCES Instituição (IdInstituição))
+  
+CREATE TABLE Publicação 
+( Número INTEGER NOT NULL,
+  Título VARCHAR(60) NOT NULL,
+  PRIMARY KEY (Número))
+  
+CREATE TABLE Referencia 
+( Número INTEGER NOT NULL,
+  Referencia INTEGER NOT NULL,
+  FOREIGN KEY(Número) REFERENCES Publicação (Número),
+  FOREIGN KEY(Referencia) REFERENCES Publicação (Número))
+  
+  
+CREATE TABLE Publicar 
+( Código INTEGER NOT NULL,
+  Número INTEGER NOT NULL,
+  FOREIGN KEY(Código) REFERENCES Pesquisador (Código),
+  FOREIGN KEY(Número) REFERENCES Publicação (Número))
+  
+  
+CREATE TABLE Periodico 
+( IdPeriodico INTEGER NOT NULL,
+  NúmeroEdição VARCHAR(10) NOT NULL,
+  Volume VARCHAR(10) NOT NULL,
+  PaginaIncial VARCHAR(10) NOT NULL,
+  PaginaFinal VARCHAR(10) NOT NULL,
+  Nome VARCHAR(60) NOT NULL,
+  Editora VARCHAR(60) NOT NULL,
+  Número INTEGER NOT NULL,
+  PRIMARY KEY (IdPeriodico),
+  FOREIGN KEY(Número) REFERENCES Publicação (Número))
+  
+CREATE TABLE Congresso 
+( Sigla VARCHAR(5) NOT NULL,
+  AnoOcorrência DATETIME NOT NULL,
+  Nome VARCHAR(60) NOT NULL,
+  Local VARCHAR(60) NOT NULL,
+  PRIMARY KEY(Sigla,AnoOcorrência))
+  
+
+CREATE TABLE PublicaçãoCongresso 
+( IdPublicaçãoCongresso INTEGER NOT NULL,
+  NúmeroFinal VARCHAR(10) NOT NULL,
+  NúmeroInicial VARCHAR(10) NOT NULL,
+  Número INTEGER NOT NULL,
+  Sigla VARCHAR(5) NOT NULL,
+  AnoOcorrência DATETIME NOT NULL,
+  PRIMARY KEY(IdPublicaçãoCongresso),
+  FOREIGN KEY(Número) REFERENCES Publicação (Número),
+  FOREIGN KEY(Sigla) REFERENCES Congresso (Sigla),
+  FOREIGN KEY(AnoOcorrência) REFERENCES Congresso (AnoOcorrência))
