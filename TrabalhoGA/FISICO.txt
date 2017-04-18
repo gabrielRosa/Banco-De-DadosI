@@ -2,15 +2,14 @@ CREATE TABLE Pesquisador
 (  Codigo INTEGER NOT NULL,
    Nome VARCHAR(60) NOT NULL,
    PRIMARY KEY (Codigo)
-)
-   
+)   
 CREATE TABLE Instituicao 
 ( IdInstituicao INTEGER NOT NULL,
   Nome VARCHAR(60) NOT NULL,
   País VARCHAR(60) NOT NULL,
   PRIMARY KEY (IdInstituicao)
-)
-  
+)  
+
 CREATE TABLE Trabalho 
 ( Codigo INTEGER NOT NULL,
   IdInstituicao INTEGER NOT NULL,
@@ -18,30 +17,27 @@ CREATE TABLE Trabalho
   DataDesligamento DATETIME,
   FOREIGN KEY(Codigo) REFERENCES Pesquisador (Codigo),
   FOREIGN KEY(IdInstituicao) REFERENCES Instituicao (IdInstituicao)
-)
-  
+)  
+
 CREATE TABLE Publicação 
 ( Numero INTEGER NOT NULL,
   Título VARCHAR(60) NOT NULL,
   PRIMARY KEY (Numero)
-)
-  
+)  
 CREATE TABLE Referencia 
 ( Numero INTEGER NOT NULL,
   Referencia INTEGER NOT NULL,
   FOREIGN KEY(Numero) REFERENCES Publicação (Numero),
   FOREIGN KEY(Referencia) REFERENCES Publicação (Numero)
-)
-  
-  
+)  
+
 CREATE TABLE Publicar 
 ( Codigo INTEGER NOT NULL,
   Numero INTEGER NOT NULL,
   FOREIGN KEY(Codigo) REFERENCES Pesquisador (Codigo),
   FOREIGN KEY(Numero) REFERENCES Publicação (Numero)
-)
-  
-  
+)   
+ 
 CREATE TABLE Periodico 
 ( IdPeriodico INTEGER NOT NULL,
   NumeroEdição VARCHAR(10) NOT NULL,
@@ -53,8 +49,8 @@ CREATE TABLE Periodico
   Numero INTEGER NOT NULL,
   PRIMARY KEY (IdPeriodico),
   FOREIGN KEY(Numero) REFERENCES Publicação (Numero)
-)
-  
+)  
+
 CREATE TABLE Congresso 
 ( Sigla VARCHAR(5) NOT NULL,
   AnoOcorrencia DATETIME NOT NULL,
@@ -62,7 +58,6 @@ CREATE TABLE Congresso
   Local VARCHAR(60) NOT NULL,
   PRIMARY KEY(Sigla,AnoOcorrencia)
 )
-  
 
 CREATE TABLE PublicaçãoCongresso 
 ( IdPublicaçãoCongresso INTEGER NOT NULL,
