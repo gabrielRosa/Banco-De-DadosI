@@ -46,7 +46,7 @@ CREATE TABLE Periodico
 ( IdPeriodico INTEGER NOT NULL,
   NumeroEdição VARCHAR(10) NOT NULL,
   Volume VARCHAR(10) NOT NULL,
-  PaginaIncial VARCHAR(10) NOT NULL,
+  PaginaInicial VARCHAR(10) NOT NULL,
   PaginaFinal VARCHAR(10) NOT NULL,
   Nome VARCHAR(60) NOT NULL,
   Editora VARCHAR(60) NOT NULL,
@@ -66,8 +66,8 @@ CREATE TABLE Congresso
 
 CREATE TABLE PublicaçãoCongresso 
 ( IdPublicaçãoCongresso INTEGER NOT NULL,
-  NumeroFinal VARCHAR(10) NOT NULL,
-  NumeroInicial VARCHAR(10) NOT NULL,
+  PaginaInicial VARCHAR(10) NOT NULL,
+  PaginaFinal VARCHAR(10) NOT NULL,
   Numero INTEGER NOT NULL,
   Sigla VARCHAR(5) NOT NULL,
   AnoOcorrencia DATETIME NOT NULL,
