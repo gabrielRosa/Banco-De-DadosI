@@ -1,69 +1,78 @@
 CREATE TABLE Pesquisador 
-( Código INTEGER NOT NULL,
+(  Codigo INTEGER NOT NULL,
    Nome VARCHAR(60) NOT NULL,
-   PRIMARY KEY (Código))
+   PRIMARY KEY (Codigo)
+)
    
-CREATE TABLE Instituição 
-( IdInstituição INTEGER NOT NULL,
+CREATE TABLE Instituicao 
+( IdInstituicao INTEGER NOT NULL,
   Nome VARCHAR(60) NOT NULL,
   País VARCHAR(60) NOT NULL,
-  PRIMARY KEY (IdInstituição))
+  PRIMARY KEY (IdInstituicao)
+)
   
 CREATE TABLE Trabalho 
-( Código INTEGER NOT NULL,
-  IdInstituição INTEGER NOT NULL,
+( Codigo INTEGER NOT NULL,
+  IdInstituicao INTEGER NOT NULL,
   DataInicial DATETIME NOT NULL,
   DataDesligamento DATETIME,
-  FOREIGN KEY(Código) REFERENCES Pesquisador (Código),
-  FOREIGN KEY(IdInstituição) REFERENCES Instituição (IdInstituição))
+  FOREIGN KEY(Codigo) REFERENCES Pesquisador (Codigo),
+  FOREIGN KEY(IdInstituicao) REFERENCES Instituicao (IdInstituicao)
+)
   
 CREATE TABLE Publicação 
-( Número INTEGER NOT NULL,
+( Numero INTEGER NOT NULL,
   Título VARCHAR(60) NOT NULL,
-  PRIMARY KEY (Número))
+  PRIMARY KEY (Numero)
+)
   
 CREATE TABLE Referencia 
-( Número INTEGER NOT NULL,
+( Numero INTEGER NOT NULL,
   Referencia INTEGER NOT NULL,
-  FOREIGN KEY(Número) REFERENCES Publicação (Número),
-  FOREIGN KEY(Referencia) REFERENCES Publicação (Número))
+  FOREIGN KEY(Numero) REFERENCES Publicação (Numero),
+  FOREIGN KEY(Referencia) REFERENCES Publicação (Numero)
+)
   
   
 CREATE TABLE Publicar 
-( Código INTEGER NOT NULL,
-  Número INTEGER NOT NULL,
-  FOREIGN KEY(Código) REFERENCES Pesquisador (Código),
-  FOREIGN KEY(Número) REFERENCES Publicação (Número))
+( Codigo INTEGER NOT NULL,
+  Numero INTEGER NOT NULL,
+  FOREIGN KEY(Codigo) REFERENCES Pesquisador (Codigo),
+  FOREIGN KEY(Numero) REFERENCES Publicação (Numero)
+)
   
   
 CREATE TABLE Periodico 
 ( IdPeriodico INTEGER NOT NULL,
-  NúmeroEdição VARCHAR(10) NOT NULL,
+  NumeroEdição VARCHAR(10) NOT NULL,
   Volume VARCHAR(10) NOT NULL,
   PaginaIncial VARCHAR(10) NOT NULL,
   PaginaFinal VARCHAR(10) NOT NULL,
   Nome VARCHAR(60) NOT NULL,
   Editora VARCHAR(60) NOT NULL,
-  Número INTEGER NOT NULL,
+  Numero INTEGER NOT NULL,
   PRIMARY KEY (IdPeriodico),
-  FOREIGN KEY(Número) REFERENCES Publicação (Número))
+  FOREIGN KEY(Numero) REFERENCES Publicação (Numero)
+)
   
 CREATE TABLE Congresso 
 ( Sigla VARCHAR(5) NOT NULL,
-  AnoOcorrência DATETIME NOT NULL,
+  AnoOcorrencia DATETIME NOT NULL,
   Nome VARCHAR(60) NOT NULL,
   Local VARCHAR(60) NOT NULL,
-  PRIMARY KEY(Sigla,AnoOcorrência))
+  PRIMARY KEY(Sigla,AnoOcorrencia)
+)
   
 
 CREATE TABLE PublicaçãoCongresso 
 ( IdPublicaçãoCongresso INTEGER NOT NULL,
-  NúmeroFinal VARCHAR(10) NOT NULL,
-  NúmeroInicial VARCHAR(10) NOT NULL,
-  Número INTEGER NOT NULL,
+  NumeroFinal VARCHAR(10) NOT NULL,
+  NumeroInicial VARCHAR(10) NOT NULL,
+  Numero INTEGER NOT NULL,
   Sigla VARCHAR(5) NOT NULL,
-  AnoOcorrência DATETIME NOT NULL,
+  AnoOcorrencia DATETIME NOT NULL,
   PRIMARY KEY(IdPublicaçãoCongresso),
-  FOREIGN KEY(Número) REFERENCES Publicação (Número),
+  FOREIGN KEY(Numero) REFERENCES Publicação (Numero),
   FOREIGN KEY(Sigla) REFERENCES Congresso (Sigla),
-  FOREIGN KEY(AnoOcorrência) REFERENCES Congresso (AnoOcorrência))
+  FOREIGN KEY(AnoOcorrencia) REFERENCES Congresso (AnoOcorrencia)
+)
